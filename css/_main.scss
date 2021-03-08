@@ -1,0 +1,217 @@
+@charset "utf-8";
+
+//--------------------------------------------------------------------------------
+// Main Style
+//--------------------------------------------------------------------------------
+
+// Desktop Width
+//--------------------------------------------------
+
+.fadeU {
+	// 下から上にアニメーション
+	opacity: 0;
+	transform: translate(0, -50%);
+	transition: 1s;
+}
+
+.fadeD {
+	// 上から下にアニメーション
+	opacity: 0;
+	transform: translate(0, 50%);
+	transition: 1s;
+}
+
+.active {
+	opacity: 1;
+	transform: translate(0, 0);
+}
+// jsでつけたactiveクラスに処理加える
+
+.body {
+	text-align: center;
+	background: #f6f6f6;
+	color: #515151;
+	font-family: Verdana, Arial, Helvetica, "meirio", "メイリオ",
+		"Hiragino Maru Gothic Pro", "ヒラギノ丸ゴ Pro W4", Osaka, "ＭＳ Ｐゴシック",
+		sans-serif;
+}
+
+.main__inner {
+	display: flex;
+	flex-wrap: wrap;
+	max-width: $pcContentsWidth;
+	margin: 0 auto;
+	.main__contents {
+		margin-left: 20px;
+		.main__visual {
+			height: 280px;
+			max-width: 640px;
+			margin-bottom: 10px;
+		}
+	}
+	// サイドバーのセレクター
+	.sidebar__contents {
+		background: #fff;
+		text-align: left;
+		width: 260px;
+		height: 230px;
+		border: $base_color 1px solid;
+		&:nth-of-type(2) {
+			margin-top: 20px;
+		}
+		.sidebar__contents-title {
+			color: #fff;
+			background: linear-gradient(
+				rgb(156, 227, 225) 0%,
+				rgb(108, 198, 196) 100%
+			);
+			padding: 10px 0 10px 10px;
+		}
+		.sidebar__contents-list {
+			position: relative;
+			line-height: 40px;
+			@include lineHeightErase(40px);
+			font-weight: bold;
+			&::before {
+				position: absolute;
+				content: "";
+			}
+			a {
+				color: $text_color;
+				@include fontsize(14);
+				&:hover {
+					color: $base_color;
+				}
+			}
+			.sidebar__contents-item {
+				position: relative;
+				height: 40px;
+				padding-left: 25px;
+				border-bottom: 1px $base_color solid;
+				width: 220px;
+				margin: 0 auto;
+				&::after {
+					//リストの前のひし形をつけるセレクタ
+					display: block;
+					content: "";
+					position: absolute;
+					top: 17px;
+					left: 8px;
+					width: 8px;
+					height: 8px;
+					background: $base_color;
+					-webkit-transform: rotate(-45deg);
+					transform: rotate(-45deg);
+				}
+			}
+		}
+	}
+	//メイントピックスのセレクター
+	.main__topics {
+		max-width: 640px;
+		background: #fff;
+		// background-color:などしっかりプロパティ指定する;
+		padding-bottom: 50px;
+		.main__topics-title {
+			display: inline-block;
+			width: 600px;
+			@include fontsize(16);
+			padding: 30px 0 20px 0;
+			border-bottom: $base_color 3px solid;
+			text-align: left;
+		}
+		.main__topics-contents {
+			&:first-of-type {
+				margin-top: 20px;
+			}
+			.main__topics-contents--box {
+				display: flex;
+				width: 580px;
+				// widthでpx指定はダメ
+				// max-width580pxとwidth100%で可変するようにセット
+				border-bottom: #515151 1px dotted;
+				// font-size: 13px;
+				@include fontsize(13);
+				padding: 15px 0;
+				margin: 0 auto;
+				.main__topics-contents-date {
+					font-weight: bold;
+					width: 150px;
+				}
+				.main__topics-contents--right {
+					text-align: left;
+					.main__topics-contents-text {
+						line-height: 1.3;
+						@include lineHeightErase(1.3);
+						// ブロック要素になる。line-heightとセットでこのmixin使う
+					}
+				}
+			}
+		}
+	}
+}
+
+// SmartPhone Width
+//--------------------------------------------------
+@media #{$smartPhone} {
+	// 詳細度の設定を通常のscssと同じ記述にしないと反映しない。
+	main {
+		.main__inner {
+			//orderプロパティのために大枠の親要素にflex指定
+			// ここにflex指定本来するが元々かかってるから不要
+			margin: 0 10px;
+			.sidebar {
+				order: 2;
+				//順番をメインビジュアルの一つ下に持っていく指定
+				max-width: 740px;
+				width: 100%;
+				.sidebar__inner {
+					.sidebar__contents {
+						width: auto;
+						.sidebar__contents-list {
+							.sidebar__contents-item {
+								width: auto;
+							}
+						}
+					}
+				}
+			}
+			.main__contents {
+				margin-left: 1px;
+				.main__visual {
+					order: -1;
+					// 順番をマイナスで一番上に持ってくる
+				}
+				.main__topics {
+					max-width: 740px;
+					order: 1;
+					margin-bottom: 40px;
+					.main__topics-title {
+						max-width: 720px;
+						width: 100%;
+					}
+					.main__topics-contents {
+						&:first-of-type {
+							margin-top: 0;
+						}
+						.main__topics-contents--box {
+							flex-direction: column;
+							// 元々flexかかってるところにはflex表記がいらない
+							padding: 0;
+							width: auto;
+							// widthのピクセル指定してるところはautoに変えることで解除できる
+							.main__topics-contents-date {
+								&:first-of-type {
+									padding: 30px 0;
+								}
+							}
+						}
+						.main__topics-contents--right {
+							padding: 0 25px 20px;
+						}
+					}
+				}
+			}
+		}
+	}
+}

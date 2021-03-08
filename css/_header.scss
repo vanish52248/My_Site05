@@ -1,0 +1,151 @@
+@charset "utf-8";
+
+//--------------------------------------------------------------------------------
+// Header Style
+//--------------------------------------------------------------------------------
+
+// Desktop Width
+//--------------------------------------------------
+header {
+	hr {
+		border: #6cc6c4 5px solid;
+		margin: 0;
+	}
+	.header__inner {
+		max-width: $pcContentsWidth;
+		width: 100%;
+		color: $text_color;
+		margin: 0 auto;
+		.header__inner-flex {
+			display: flex;
+			justify-content: space-between;
+			.header__logo {
+				max-width: 260px;
+				padding: 40px 0;
+			}
+			.header__info {
+				@include fontsize(11);
+				.header__info-title {
+					padding: 10px 0 20px;
+					font-weight: normal;
+				}
+				.header__info-tell {
+					// background: url(images/header__tell.png) no-repeat 20px center;
+					p {
+						display: inline-block;
+						position: relative;
+						@include fontsize(26);
+						&::before {
+							// 疑似要素
+							content: "";
+							background: url(images/header__tell.png) no-repeat;
+							display: inline-block;
+							width: 20px;
+							height: 30px;
+							position: absolute;
+							left: -30px;
+						}
+					}
+				}
+				.header__info-reception {
+					p {
+						display: inline-block;
+						padding: 10px;
+						border: #d6d6d6 1px solid;
+						//divにボーダーつけるようにする。
+						margin-top: 10px;
+						span {
+							color: #b22c00;
+						}
+					}
+				}
+			}
+		}
+
+		.nav__contents {
+			display: flex;
+			margin-bottom: 20px;
+			.nav__contents-list {
+				background: $base_color;
+				width: 190px;
+				height: 70px;
+				border-left: #99e1df solid 1px;
+				&:first-of-type {
+					border-radius: 6px 0 0 6px;
+					// 左上と左下の面取り
+					overflow: hidden;
+					// はみ出た部分を非表示
+				}
+				&:last-of-type {
+					border-radius: 0 6px 6px 0;
+					// 右上と右下の面取り
+					overflow: hidden;
+					// はみ出た部分を非表示
+				}
+			}
+			a {
+				color: #fff;
+				display: block;
+				height: 100%;
+				@include fontsize(14);
+				font-weight: bold;
+				padding-top: 18px;
+				background: linear-gradient(
+					rgb(156, 227, 225) 0%,
+					rgb(108, 198, 196) 100%
+				);
+				&:hover {
+					background: linear-gradient(
+						rgb(108, 198, 196) 0%,
+						rgb(156, 227, 225) 100%
+					);
+				}
+				span {
+					display: block;
+					padding-top: 5px;
+					@include fontsize(11);
+				}
+			}
+		}
+	}
+}
+
+// SmartPhone Width
+//--------------------------------------------------
+@media #{$smartPhone} {
+	header {
+		.header__inner {
+			.header__inner-flex {
+				display: inline-block;
+				.header__logo {
+					padding: 0;
+				}
+				.header__info {
+					.header__info-title {
+						@include fontsize(10);
+						padding: 0;
+					}
+					.header__info-tell {
+						margin: 15px 0 0 25px;
+					}
+					.header__info-reception {
+						@include fontsize(10);
+						margin-bottom: 20px;
+						p {
+							padding: 10px 20px;
+						}
+					}
+				}
+			}
+			nav {
+				.nav__contents {
+					display: flex;
+					flex-wrap: wrap;
+					.nav__contents-list {
+						width: 50%;
+					}
+				}
+			}
+		}
+	}
+}

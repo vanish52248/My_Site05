@@ -1,0 +1,95 @@
+@charset "utf-8";
+
+//--------------------------------------------------------------------------------
+// Footer Style
+//--------------------------------------------------------------------------------
+
+// Desktop Width
+//--------------------------------------------------
+footer {
+	.footer__inner {
+		max-width: $pcContentsWidth;
+		width: 100%;
+		margin: 0 auto;
+		@include fontsize(12);
+		.footer__list {
+			ul {
+				position: relative;
+				display: flex;
+				align-items: center;
+				background-color: $base_color;
+				height: 30px;
+				border-radius: 5px;
+				margin-top: 20px;
+				li {
+					padding-left: 20px;
+					&::before {
+						display: inline-block;
+						position: absolute;
+						top: 7px;
+						background-image: url(images/footer__icon.png);
+						background-repeat: no-repeat;
+						width: 30px;
+						height: 30px;
+						// 疑似要素に入れる アイコンは幅高さを指定する必要あり
+						content: "";
+					}
+					a {
+						color: #fff;
+						text-decoration: none;
+						@include fontsize(13);
+						padding-left: 25px;
+						&:hover {
+							text-decoration: underline;
+						}
+					}
+				}
+			}
+		}
+		.footer__info {
+			p {
+				max-width: 920px;
+				width: 100%;
+				text-align: right;
+				@include fontsize(13);
+				border-bottom: $base_color 2px solid;
+				height: 50px;
+				line-height: 50px;
+				@include lineHeightErase(50px);
+				br {
+					display: none;
+				}
+				span {
+					font-weight: bold;
+				}
+			}
+		}
+		.footer__copyright {
+			height: 50px;
+			line-height: 50px;
+			@include lineHeightErase(50px);
+		}
+	}
+}
+// SmartPhone Width
+//--------------------------------------------------
+@media #{$smartPhone} {
+	footer {
+		.footer__inner {
+			.footer__list {
+				margin: 0 10px;
+			}
+			.footer__info {
+				p {
+					line-height: initial;
+					// [initial]のreset cssの[line-height] [inherit]値を解除する値
+					padding: 15px 10px 70px 0;
+					br {
+						display: inline;
+						//デフォルトのbrはinlineだからデフォルトにする
+					}
+				}
+			}
+		}
+	}
+}
